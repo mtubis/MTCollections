@@ -18,8 +18,7 @@ use Traversable;
  * - Keeps elements sorted on insertion.
  * - Allows duplicates.
  *
- * @template T of int|string
- * @implements IteratorAggregate<int, T>
+ * @implements IteratorAggregate<int, int|string>
  */
 final class SortedLinkedList implements Countable, IteratorAggregate
 {
@@ -29,19 +28,25 @@ final class SortedLinkedList implements Countable, IteratorAggregate
     /** @var self::TYPE_INT|self::TYPE_STRING|null */
     private ?string $type;
 
-    /** @var Node<int|string>|null */
     private ?Node $head = null;
 
     private int $count = 0;
 
     /**
-     * @var callable(int|string, int|string): int|null
+     * Comparator signature like usort: <0, 0, >0.
+     *
+     * We accept:
+     * - callable(int, int): int (for int lists)
+     * - callable(string, string): int (for string lists)
+     * - callable(int|string, int|string): int (generic)
+     *
+     * @var (callable(int, int): int)|(callable(string, string): int)|(callable(int|string, int|string): int)|null
      */
     private $comparator;
 
     /**
-     * @param self::TYPE_INT|self::TYPE_STRING|null      $type
-     * @param callable(int|string, int|string): int|null $comparator
+     * @param self::TYPE_INT|self::TYPE_STRING|null                                                                  $type
+     * @param (callable(int, int): int)|(callable(string, string): int)|(callable(int|string, int|string): int)|null $comparator
      */
     public function __construct(?string $type = null, ?callable $comparator = null)
     {
@@ -74,12 +79,6 @@ final class SortedLinkedList implements Countable, IteratorAggregate
         return new self(self::TYPE_STRING, $comparator);
     }
 
-    /**
-     * Insert value keeping list sorted (ascending).
-     *
-     * @param  T     $value
-     * @return $this
-     */
     public function add(int|string $value): self
     {
         $this->ensureTypeOnAdd($value);
@@ -118,11 +117,6 @@ final class SortedLinkedList implements Countable, IteratorAggregate
         return $this;
     }
 
-    /**
-     * Remove first occurrence of value.
-     *
-     * @param T $value
-     */
     public function remove(int|string $value): bool
     {
         $this->ensureTypeOnReadOperation($value);
@@ -168,11 +162,6 @@ final class SortedLinkedList implements Countable, IteratorAggregate
         return false;
     }
 
-    /**
-     * Remove all occurrences of value.
-     *
-     * @param T $value
-     */
     public function removeAll(int|string $value): int
     {
         $removed = 0;
@@ -184,9 +173,6 @@ final class SortedLinkedList implements Countable, IteratorAggregate
         return $removed;
     }
 
-    /**
-     * @param T $value
-     */
     public function contains(int|string $value): bool
     {
         $this->ensureTypeOnReadOperation($value);
@@ -215,9 +201,6 @@ final class SortedLinkedList implements Countable, IteratorAggregate
         return $this->count === 0;
     }
 
-    /**
-     * @return T
-     */
     public function first(): int|string
     {
         if ($this->head === null) {
@@ -227,9 +210,6 @@ final class SortedLinkedList implements Countable, IteratorAggregate
         return $this->head->value;
     }
 
-    /**
-     * @return T
-     */
     public function last(): int|string
     {
         if ($this->head === null) {
@@ -254,7 +234,7 @@ final class SortedLinkedList implements Countable, IteratorAggregate
     }
 
     /**
-     * @return array<int, T>
+     * @return array<int, int|string>
      */
     public function toArray(): array
     {
@@ -272,7 +252,7 @@ final class SortedLinkedList implements Countable, IteratorAggregate
     }
 
     /**
-     * @return Traversable<int, T>
+     * @return Traversable<int, int|string>
      */
     public function getIterator(): Traversable
     {
