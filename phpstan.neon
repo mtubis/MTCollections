@@ -1,0 +1,16 @@
+parameters:
+  level: 8
+  paths:
+    - src
+    - tests
+
+  # Default sanity-check
+  checkMissingIterableValueType: true
+  checkGenericClassInNonGenericObjectType: true
+  checkUninitializedProperties: true
+
+  # PHPUnit and tests often have dynamic assertions
+  treatPhpDocTypesAsCertain: false
+
+  # ignore "unreachable" in generators etc.
+  reportUnmatchedIgnoredErrors: true
