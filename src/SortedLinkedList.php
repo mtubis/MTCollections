@@ -40,7 +40,7 @@ final class SortedLinkedList implements Countable, IteratorAggregate
     private $comparator;
 
     /**
-     * @param self::TYPE_INT|self::TYPE_STRING|null $type
+     * @param self::TYPE_INT|self::TYPE_STRING|null      $type
      * @param callable(int|string, int|string): int|null $comparator
      */
     public function __construct(?string $type = null, ?callable $comparator = null)
@@ -77,7 +77,7 @@ final class SortedLinkedList implements Countable, IteratorAggregate
     /**
      * Insert value keeping list sorted (ascending).
      *
-     * @param T $value
+     * @param  T     $value
      * @return $this
      */
     public function add(int|string $value): self
@@ -328,7 +328,7 @@ final class SortedLinkedList implements Countable, IteratorAggregate
             throw new InvalidArgumentException(sprintf(
                 'This list holds only %s values; %s given.',
                 $this->type,
-                $incoming
+                $incoming,
             ));
         }
     }
@@ -348,7 +348,7 @@ final class SortedLinkedList implements Countable, IteratorAggregate
             throw new InvalidArgumentException(sprintf(
                 'This list holds only %s values; %s given.',
                 $this->type,
-                $incoming
+                $incoming,
             ));
         }
     }

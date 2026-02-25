@@ -114,7 +114,7 @@ final class SortedLinkedListTest extends TestCase
     public function testCustomComparatorForStrings(): void
     {
         $list = SortedLinkedList::forStrings(
-            static fn (string $a, string $b): int => strcasecmp($a, $b)
+            static fn (string $a, string $b): int => strcasecmp($a, $b),
         );
 
         $list->add('zoe')->add('Anna')->add('mike');
