@@ -10,6 +10,9 @@ composer.lock
 /build/
 coverage/
 
+# PHP-CS-Fixer
+.php-cs-fixer.cache
+
 # OS / tooling noise
 .DS_Store
 Thumbs.db
