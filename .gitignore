@@ -1,0 +1,18 @@
+# Composer
+/vendor/
+composer.lock
+
+# IDE
+.idea/
+
+# PHPUnit
+.phpunit.result.cache
+/build/
+coverage/
+
+# OS / tooling noise
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
